@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            color: #4CAF50;
+            margin: 0;
+        }
+        .add-todo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .add-todo-form label {
+            font-weight: bold;
+        }
+        .add-todo-form input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .add-todo-form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+        .add-todo-form button:hover {
+            background-color: #45a049;
+        }
+        .todo-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .todo-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #e186c6;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .delete-button:hover {
+            color: #ff6384;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Todo App</h1>
+        </header>
+        <form class="add-todo-form" id="todoForm">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" required>
+            <button id="addTodoBtn">Add Todo</button>
+        </form>
+        <ul class="todo-list" id="todoList"></ul>
+    </div>
+
+    <script>
+        document.getElementById("addTodoBtn").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get input values
+            var title = document.getElementById("title").value;
+
+            // Create todo item
+            var li = document.createElement("li");
+            li.classList.add("todo-item");
+            li.innerHTML = `
+                <span>${title}</span>
+                <button class="delete-button"><i class="fas fa-trash-alt"></i></button>
+            `;
+
+            // Add event listener to delete button
+            var deleteButton = li.querySelector(".delete-button");
+            deleteButton.addEventListener("click", function() {
+                li.remove();
+            });
+
+            // Add todo item to the list
+            document.getElementById("todoList").appendChild(li);
+
+            // Clear input field
+            document.getElementById("title").value = "";
+        });
+    </script>
+</body>
+</html>
